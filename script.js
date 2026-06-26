@@ -1,3 +1,66 @@
+const intro = document.getElementById("intro");
+const introTitle = document.getElementById("introTitle");
+const countDown = document.getElementById("countDown");
+const introHeart = document.getElementById("introHeart");
+const loadingText = document.getElementById("loadingText");
+const page = document.querySelector(".page-shell");
+
+async function sleep(ms){
+    return new Promise(resolve=>setTimeout(resolve,ms));
+}
+async function playIntro(){
+
+    page.style.display="none";
+
+    await sleep(800);
+
+    for(let i=3;i>=1;i--){
+
+        countDown.textContent=i;
+
+        await sleep(1000);
+
+    }
+
+    countDown.style.display="none";
+    introTitle.style.display="none";
+
+    introHeart.classList.add("beat");
+
+    await sleep(2500);
+
+     introHeart.classList.remove("beat");
+
+    introHeart.style.display="none";
+
+    loadingText.style.opacity=1;
+
+
+    
+    const messages=[
+        "Đang chạy flow tình yêu...",
+    ];
+
+    for(const msg of messages){
+
+        loadingText.innerHTML+=msg+"<br>";
+
+        await sleep(500);
+
+    }
+
+    await sleep(1200);
+
+    intro.classList.add("hide");
+
+    page.style.display="block";
+
+    requestAnimationFrame(()=>{
+        page.classList.add("show");
+    });
+
+}
+window.addEventListener("load",playIntro);
 const chip = document.querySelector(".chip-stage");
 const flowCards = [...document.querySelectorAll(".flow-card")];
 const signoffButton = document.querySelector(".signoff-button");
